@@ -1,9 +1,9 @@
 <?php
 /**
- * Class OAuth Helper
- * Contains general static methods that are mainly used by the server calls.
+ * Encryption Class
+ * Contains general static methods that are mainly used for encryptions
  *
- * @version  1.0
+ * @version  1.1
  * @package Stilero
  * @subpackage Class FB
  * @author Daniel Eliasson (joomla@stilero.com)
@@ -15,7 +15,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class StileroFBOauthHelper {
+class StileroFBOauthEncryption {
     
     /**
      * Generates an unique token that can be used to identify the request.
@@ -97,7 +97,7 @@ class StileroFBOauthHelper {
      */
     public static function EncryptedCSFRState($key, $string){
         $base64EncryptedString = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, md5(md5($key))));
-        $sanitizedAndEncrypted = str_replace(array('+','/','='),array('-','_',''),$encrypted);        
+        $sanitizedAndEncrypted = str_replace(array('+','/','='),array('-','_',''),$base64EncryptedString);        
         return $sanitizedAndEncrypted;
     }
 }
