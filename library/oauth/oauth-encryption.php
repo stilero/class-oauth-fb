@@ -15,7 +15,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class StileroFBOauthEncryption {
+class StileroOauthEncryption {
     
     /**
      * Generates an unique token that can be used to identify the request.
