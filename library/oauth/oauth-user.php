@@ -1,6 +1,6 @@
 <?php
 /**
- * Class User
+ * Oauth User Class
  *
  * @version  1.0
  * @package Stilero
@@ -14,11 +14,16 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class StileroFBOauthUser{
+class StileroOauthUser{
     
     public $accessToken;
     public $tokenSecret;
     
+    /**
+     * Generates an Oauth User Class, also referred to as Consumer
+     * @param string $accessToken Oauth Access Token
+     * @param string $tokenSecret Oauth Token Secret
+     */
     public function __construct($accessToken, $tokenSecret) {
         $this->accessToken = $accessToken;
         $this->tokenSecret = $tokenSecret;
