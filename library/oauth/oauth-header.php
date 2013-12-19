@@ -16,7 +16,7 @@
 defined('_JEXEC') or die('Restricted access'); 
 
 
-class StileroFBOauthHeader {
+class StileroOauthHeader {
     const USER_AGENT = 'Stilero OAuth Header Class v1.0';
     const ACCEPT_ALL = '*/*';
     const CONNECTION_CLOSE = 'close';
