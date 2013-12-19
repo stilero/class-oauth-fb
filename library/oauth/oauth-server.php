@@ -14,7 +14,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class StileroOauthServer extends StileroFBOauthCommunicator{
+class StileroOauthServer extends StileroOauthCommunicator{
     
     private $OauthClient;
     private $OauthUser;

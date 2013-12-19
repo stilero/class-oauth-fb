@@ -12,7 +12,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class StileroFBOauthCommunicator {
+class StileroOauthCommunicator {
     
     protected $_config;
     protected $header;
@@ -28,7 +28,13 @@ class StileroFBOauthCommunicator {
     const REQUEST_METHOD_POST = 'POST';
     const REQUEST_METHOD_GET = 'GET';
     const HTTP_STATUS_OK = '200';
-
+    
+    /**
+     * Communicator class for sending server requests
+     * @param string $url URL to send the request to
+     * @param array $postVars Array with the params to send as post
+     * @param array $config cURL config for setting custom config
+     */
     function __construct($url="", $postVars="", $config="") {
         $this->_isPost = false;
         $this->url = $url;
@@ -36,7 +42,6 @@ class StileroFBOauthCommunicator {
             $this->_isPost = true;
             $this->postVars = $postVars;
         }
-        
         $this->_config = 
             array(
                 'curlUserAgent'         =>  'Communicator - www.stilero.com',
@@ -59,6 +64,9 @@ class StileroFBOauthCommunicator {
         }
     }
     
+    /**
+     * Sends the request
+     */
     public function query(){
         $this->resetResponse();
         $this->_curlHandler = curl_init(); 
@@ -67,8 +75,11 @@ class StileroFBOauthCommunicator {
         $this->_responseInfoParts = curl_getinfo($this->_curlHandler); 
         curl_close ($this->_curlHandler);
    }
-    
-    private function _setupCurl(){
+   
+   /**
+    * Initialize and setupt the cUrl communication
+    */
+   private function _setupCurl(){
         $this->_initCurlSettings();
         $this->_initCurlCustomRequest();
         $this->_initCurlPostMode();
@@ -76,6 +87,9 @@ class StileroFBOauthCommunicator {
         $this->_initCurlProxyPassword();
     }
     
+    /**
+     * Sets default curl Settings
+     */
     private function _initCurlSettings(){
         curl_setopt_array(
             $this->_curlHandler, 
@@ -94,12 +108,18 @@ class StileroFBOauthCommunicator {
             )
         );
     }
+    /**
+     * Initializes a custom cURL request
+     */
     private function _initCurlCustomRequest(){
         if($this->_isCustomRequest){
             curl_setopt($this->_curlHandler, CURLOPT_CUSTOMREQUEST, $this->_customRequestType);
         }
     }
     
+    /**
+     * Initializes post mode if the request method is POST
+     */
     private function _initCurlPostMode(){
         if($this->_isPost){
             curl_setopt($this->_curlHandler, CURLOPT_POST, $this->_isPost);
@@ -107,11 +127,17 @@ class StileroFBOauthCommunicator {
         }
     }
     
+    /**
+     * Initializes cURL headers
+     */
     private function _initCurlHeader(){
         $this->_buildHTTPHeader();
         curl_setopt($this->_curlHandler, CURLOPT_HTTPHEADER, $this->header);
     }
     
+    /**
+     *  Builds the HTTP Header 
+     */
     protected function _buildHTTPHeader(){
         if(isset($this->header)){
             return;
@@ -127,30 +153,51 @@ class StileroFBOauthCommunicator {
         $this->header = $header;
     }
     
+    /**
+     * Initializes and sets a proxy password if specified in the config
+     */
     private function _initCurlProxyPassword(){
         if ($this->_config['curlProxyPassword'] !== false) {
             curl_setopt($this->_curlHandler, CURLOPT_PROXYUSERPWD, $this->_config['curl_proxyuserpwd']);
         } 
     }
-       
+    
+    /**
+     * Resets and clears the response
+     */
     public function resetResponse(){
         $this->_response = '';
         $this->_responseInfoParts = array();
     }
     
+    /**
+     * Sets the Request URL
+     * @param string $url The URL to send the request to
+     */
     public function setUrl($url){
         $this->url = $url;
     }
-    
+    /**
+     * Sets a custom Header
+     * @param array $header Array with header parts
+     */
     public function setHeader($header=''){
         $this->header = $header;
     }
     
+    /**
+     * Sets a custom request type
+     * @param string $type Set a custom request type (GET/POST/DELETE/PUT)
+     */
     public function setCustomRequest($type){
         $this->_isCustomRequest = true;
         $this->_customRequestType = $type;
     }
     
+    /**
+     * Sets the post params to send as a request
+     * @param array $postVars array with params to send
+     */
     public function setPostVars($postVars){
         if(is_array($postVars)){
             if(!empty($postVars)){
@@ -162,11 +209,16 @@ class StileroFBOauthCommunicator {
             $this->_isPost = true;
         }
     }
-    
+    /**
+     * Returns the server response after the call
+     * @return string Response
+     */
     public function getResponse(){
         return $this->_response;
     }
-    
+    /**
+     * 
+     */
     public function getInfo(){
         return $this->_responseInfoParts;
     }

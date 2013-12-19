@@ -14,7 +14,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class StileroFBOauthAccesstoken extends StileroFBOauthCommunicator{
+class StileroFBOauthAccesstoken extends StileroOauthCommunicator{
     
     private static $_graph_url = 'https://graph.facebook.com/';
     public $token;
