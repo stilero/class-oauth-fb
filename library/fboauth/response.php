@@ -32,8 +32,12 @@ class StileroFBResponse{
         if(isset($response->error)){
             self::error($response->error);
         }else{
-            return $response;
-        }
+            if(is_object($response)){
+                return $response;
+            }else{
+                return $json;
+            }
+       }
     }
     
     /**

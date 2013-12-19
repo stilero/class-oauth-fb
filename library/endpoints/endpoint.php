@@ -49,6 +49,7 @@ class StileroFBEndpoint extends StileroOauthCommunicator{
         }else{
             $this->setPostVars($this->params);
         }
+        var_dump($requestUrl);
         $this->setUrl($requestUrl);
         $this->query();
         $response = $this->getResponse();

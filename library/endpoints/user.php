@@ -65,7 +65,7 @@ class StileroFBEndpointUser extends StileroFBEndpoint{
      * the dimensions as possible and then cropped down.
      * @return string JSON Response
      */
-    public function picture($redirect='', $type='', $height='', $width=''){
+    public function picture($redirect='false', $type='', $height='', $width=''){
         $this->requestUrl = self::$_graph_url.$this->userId.'/picture';
         if($redirect != ''){
             $this->params['redirect'] = $redirect;
@@ -79,7 +79,7 @@ class StileroFBEndpointUser extends StileroFBEndpoint{
         if($width != ''){
             $this->params['width'] = $width;
         }
-        return $this->sendRequest(self::REQUEST_METHOD_GET, false);
+        return $this->sendRequest(self::REQUEST_METHOD_GET);
     }
     
     /**
