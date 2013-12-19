@@ -14,7 +14,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class StileroFBOauthClient{
+class StileroOauthClient{
     
     public $key;
     public $secret;

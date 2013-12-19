@@ -22,10 +22,10 @@ class StileroFBLoginDialog{
     
     /**
      * Class for generating Login Dialogs
-     * @param StileroFBOauthClient $OauthClient Also known as App-ID
+     * @param StileroOauthClient $OauthClient Also known as App-ID
      * @param string $redirectURL The URI to redirect to after dialog
      */
-    public function __construct(StileroFBOauthClient $OauthClient, $redirectURL) {
+    public function __construct(StileroOauthClient $OauthClient, $redirectURL) {
         $this->OauthClient = $OauthClient;
         $this->_redirectURL = $redirectURL;
     }

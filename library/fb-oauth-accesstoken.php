@@ -23,7 +23,7 @@ class StileroFBOauthAccesstoken extends StileroFBOauthCommunicator{
     private $_oauthCode;
     
     
-    public function __construct(StileroFBOauthClient $oauthClient, $url = "", $postVars = "", $config = "") {
+    public function __construct(StileroOauthClient $oauthClient, $url = "", $postVars = "", $config = "") {
         parent::__construct($url, $postVars, $config);
         $this->_OauthClient = $oauthClient;
     }
