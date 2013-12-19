@@ -14,7 +14,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class StileroFBOauthResponse{
+class StileroFBResponse{
     
     public $json;
     public $category;
@@ -27,11 +27,12 @@ class StileroFBOauthResponse{
      * Extracts information from FB responses
      * @param string $json
      */
-    public function __construct($json) {
-        $this->json = $json;
+    public static function handle($json) {
         $response = json_decode($json);
         if(isset($response->error)){
-            $this->error($response->error);
+            self::error($response->error);
+        }else{
+            return $response;
         }
     }
     
@@ -39,18 +40,20 @@ class StileroFBOauthResponse{
      * Handles error responses
      * @param stdClass $errorResponse
      */
-    protected function error($errorResponse){
-        $this->category = 'error';
-        $this->isError = true;
-        if (isset($errorResponse->message)){
-            $this->message = $errorResponse->message;
-        }
+    protected static function error($errorResponse){
+        $code = null;
+        $message = null;
         if (isset($errorResponse->type)){
-            $this->type = $errorResponse->type;
+            $message = $errorResponse->type;
         }
+        if (isset($errorResponse->message)){
+            $message .= ': '.$errorResponse->message;
+        }
+        
         if (isset($errorResponse->code)){
-            $this->code = $errorResponse->code;
+            $code = $errorResponse->code;
         }
+        JError::raiseError($code, $message);
     }
     
         

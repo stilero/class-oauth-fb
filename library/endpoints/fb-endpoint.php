@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 class StileroFBEndpoint extends StileroOauthCommunicator{
     
     protected static $_graph_url = 'https://graph.facebook.com/';
-    protected $params;
+    protected $params = array();
     protected $requestUrl;
     protected $AccessToken;
 

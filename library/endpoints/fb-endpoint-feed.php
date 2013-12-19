@@ -15,8 +15,17 @@
 defined('_JEXEC') or die('Restricted access'); 
 
 class StileroFBEndpointFeed extends StileroFBEndpoint{
-    public function __construct(\StileroFBOauthAccesstoken $AccessToken) {
+    
+    protected $userId;
+    
+    /**
+     * Class for posting statuses and links
+     * @param \StileroFBOauthAccesstoken $AccessToken
+     * @param int $userId User ID (default = me)
+     */
+    public function __construct(\StileroFBOauthAccesstoken $AccessToken, $userId = 'me') {
         parent::__construct($AccessToken);
+        $this->userId = $userId;
     }
     
     /**
@@ -25,8 +34,8 @@ class StileroFBEndpointFeed extends StileroFBEndpoint{
      * @param int $userId The wall/person/page ID to post to
      * @return string JSON Response
      */
-    public function postMessage($message, $userId = 'me'){
-        $this->requestUrl = self::$_graph_url.$userId.'/feed';
+    public function postMessage($message){
+        $this->requestUrl = self::$_graph_url.$this->userId.'/feed';
         $this->params = array(
             'message' => $message
         );
@@ -43,8 +52,8 @@ class StileroFBEndpointFeed extends StileroFBEndpoint{
      * @param string $picture Determines the preview image associated with the link.
      * @return string JSON Response
      */
-    public function postLink($link, $userId = 'me', $name='', $caption = '', $description = '', $picture=''){
-       $this->requestUrl = self::$_graph_url.$userId.'/feed';
+    public function postLink($link, $name='', $caption = '', $description = '', $picture=''){
+       $this->requestUrl = self::$_graph_url.$this->userId.'/feed';
         $this->params = array(
             'link' => $link
         );

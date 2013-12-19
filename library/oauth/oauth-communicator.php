@@ -71,7 +71,7 @@ class StileroOauthCommunicator {
         $this->resetResponse();
         $this->_curlHandler = curl_init(); 
         $this->_setupCurl();
-       $this->_response = curl_exec ($this->_curlHandler);
+        $this->_response = curl_exec ($this->_curlHandler);
         $this->_responseInfoParts = curl_getinfo($this->_curlHandler); 
         curl_close ($this->_curlHandler);
    }
@@ -112,6 +112,7 @@ class StileroOauthCommunicator {
      * Initializes a custom cURL request
      */
     private function _initCurlCustomRequest(){
+        
         if($this->_isCustomRequest){
             curl_setopt($this->_curlHandler, CURLOPT_CUSTOMREQUEST, $this->_customRequestType);
         }
@@ -165,7 +166,7 @@ class StileroOauthCommunicator {
     /**
      * Resets and clears the response
      */
-    public function resetResponse(){
+    protected function resetResponse(){
         $this->_response = '';
         $this->_responseInfoParts = array();
     }
@@ -174,14 +175,14 @@ class StileroOauthCommunicator {
      * Sets the Request URL
      * @param string $url The URL to send the request to
      */
-    public function setUrl($url){
+    protected function setUrl($url){
         $this->url = $url;
     }
     /**
      * Sets a custom Header
      * @param array $header Array with header parts
      */
-    public function setHeader($header=''){
+    protected function setHeader($header=''){
         $this->header = $header;
     }
     
@@ -189,7 +190,7 @@ class StileroOauthCommunicator {
      * Sets a custom request type
      * @param string $type Set a custom request type (GET/POST/DELETE/PUT)
      */
-    public function setCustomRequest($type){
+    protected function setCustomRequest($type){
         $this->_isCustomRequest = true;
         $this->_customRequestType = $type;
     }
@@ -198,7 +199,7 @@ class StileroOauthCommunicator {
      * Sets the post params to send as a request
      * @param array $postVars array with params to send
      */
-    public function setPostVars($postVars){
+    protected function setPostVars($postVars){
         if(is_array($postVars)){
             if(!empty($postVars)){
                 $this->_isPost = true;
@@ -213,21 +214,21 @@ class StileroOauthCommunicator {
      * Returns the server response after the call
      * @return string Response
      */
-    public function getResponse(){
+    protected function getResponse(){
         return $this->_response;
     }
     /**
      * 
      */
-    public function getInfo(){
+    protected function getInfo(){
         return $this->_responseInfoParts;
     }
     
-    public function getInfoHTTPCode(){
+    protected function getInfoHTTPCode(){
         return $this->_responseInfoParts['http_code'];
     }
         
-    public function isOK(){
+    protected function isOK(){
         if ($this->_responseInfoParts['http_code'] == self::HTTP_STATUS_OK) {
             return true;
         }else{

@@ -16,8 +16,16 @@ defined('_JEXEC') or die('Restricted access');
 
 class StileroFBEndpointPhotos extends StileroFBEndpoint{
     
-    public function __construct(\StileroFBOauthAccesstoken $AccessToken) {
+    protected $userId;
+    
+    /**
+     * Class for Photos
+     * @param \StileroFBOauthAccesstoken $AccessToken
+     * @param int $userId The user Id to use pro creating and reading
+     */
+    public function __construct(\StileroFBOauthAccesstoken $AccessToken, $userId = 'me') {
         parent::__construct($AccessToken);
+        $this->userId = $userId;
     }
     
     /**
@@ -30,8 +38,8 @@ class StileroFBEndpointPhotos extends StileroFBEndpoint{
      * that is automatically generated on a person's profile when they upload a photo using your app.
      * @return string ID of the newly created photo
      */
-    public function publishFromUrl($userId = 'me', $url='', $message='', $place='', $noStory=''){
-        $this->requestUrl = self::$_graph_url.$userId.'/photos';
+    public function publishFromUrl($url='', $message='', $place='', $noStory=''){
+        $this->requestUrl = self::$_graph_url.$this->userId.'/photos';
         if($url != ''){
             $this->params['url'] = $url;
         }
@@ -52,8 +60,8 @@ class StileroFBEndpointPhotos extends StileroFBEndpoint{
      * @param int $userId the User / Page ID to retrieve from
      * @return string JSON Response
      */
-    public function retrieve($userId = 'me'){
-        $this->requestUrl = self::$_graph_url.$userId.'/photos';
+    public function retrieve(){
+        $this->requestUrl = self::$_graph_url.$this->userId.'/photos';
         return $this->sendRequest(self::REQUEST_METHOD_GET);
     }
 }

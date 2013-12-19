@@ -18,14 +18,14 @@ class StileroFBOauthAccesstoken extends StileroOauthCommunicator{
     
     private static $_graph_url = 'https://graph.facebook.com/';
     public $token;
-    private $_OauthClient;
+    private $_FBApp;
     private $_redirectUri;
     private $_oauthCode;
     
     
-    public function __construct(StileroOauthClient $oauthClient, $url = "", $postVars = "", $config = "") {
-        parent::__construct($url, $postVars, $config);
-        $this->_OauthClient = $oauthClient;
+    public function __construct(StileroFBOauthApp $FbApp) {
+        parent::__construct();
+        $this->_FBApp = $FbApp;
     }
     
     /**
@@ -36,9 +36,9 @@ class StileroFBOauthAccesstoken extends StileroOauthCommunicator{
      */
     public function getTokenFromCode($oauthCode, $redirectUri){
         $url = self::$_graph_url.'oauth/access_token?'.
-                'client_id='.$this->_OauthClient->key.
+                'client_id='.$this->_FBApp->key.
                 '&redirect_uri='.$redirectUri.
-                '&client_secret='.$this->_OauthClient->secret.
+                '&client_secret='.$this->_FBApp->secret.
                 '&code='.$oauthCode;
         $this->setUrl($url);
         $this->setCustomRequest('GET');
@@ -70,8 +70,8 @@ class StileroFBOauthAccesstoken extends StileroOauthCommunicator{
     public function extend(){
         $url = self::$_graph_url.'oauth/access_token';
         $postVars = array(
-            'client_id'     =>  $this->_OauthClient->key,
-            'client_secret' =>  $this->_OauthClient->secret,
+            'client_id'     =>  $this->_FBApp->key,
+            'client_secret' =>  $this->_FBApp->secret,
             'grant_type'    =>  'fb_exchange_token',
             'fb_exchange_token' =>  $this->token
         );
