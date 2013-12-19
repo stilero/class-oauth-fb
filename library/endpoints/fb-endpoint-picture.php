@@ -16,8 +16,8 @@ defined('_JEXEC') or die('Restricted access');
 
 class StileroFBEndpointPicture extends StileroFBEndpoint{
     
-    public function __construct(\StileroFBOauthAccesstoken $AccessToken, $url = "", $postVars = "", $config = "") {
-        parent::__construct($AccessToken, $url, $postVars, $config);
+    public function __construct(\StileroFBOauthAccesstoken $AccessToken) {
+        parent::__construct($AccessToken);
     }
     
     /**
@@ -33,9 +33,6 @@ class StileroFBEndpointPicture extends StileroFBEndpoint{
      */
     public function retrieve($userId = 'me', $redirect='', $type='', $height='', $width=''){
         $this->requestUrl = self::$_graph_url.$userId.'/picture';
-        $this->params = array(
-            'access_token' =>  $this->AccessToken->token
-        );
         if($redirect != ''){
             $this->params['redirect'] = $redirect;
         }
