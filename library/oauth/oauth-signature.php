@@ -1,6 +1,6 @@
 <?php
 /**
- * Class OAuth Signature
+ * Class OAuth Signature Class
  * Class for creating and generating oAuth Signatures.
  *
  * @version  1.0
@@ -15,7 +15,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class StileroFBOauthSignature {
+class StileroOauthSignature {
     
     const SIGNATURE_METHOD = 'HMAC-SHA1';
     const OAUTH_VERSION = '1.0';
