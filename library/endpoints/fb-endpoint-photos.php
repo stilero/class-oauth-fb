@@ -16,8 +16,8 @@ defined('_JEXEC') or die('Restricted access');
 
 class StileroFBEndpointPhotos extends StileroFBEndpoint{
     
-    public function __construct(\StileroFBOauthAccesstoken $AccessToken, $url = "", $postVars = "", $config = "") {
-        parent::__construct($AccessToken, $url, $postVars, $config);
+    public function __construct(\StileroFBOauthAccesstoken $AccessToken) {
+        parent::__construct($AccessToken);
     }
     
     /**
@@ -32,9 +32,6 @@ class StileroFBEndpointPhotos extends StileroFBEndpoint{
      */
     public function publishFromUrl($userId = 'me', $url='', $message='', $place='', $noStory=''){
         $this->requestUrl = self::$_graph_url.$userId.'/photos';
-        $this->params = array(
-            'access_token' =>  $this->AccessToken->token
-        );
         if($url != ''){
             $this->params['url'] = $url;
         }
@@ -57,9 +54,6 @@ class StileroFBEndpointPhotos extends StileroFBEndpoint{
      */
     public function retrieve($userId = 'me'){
         $this->requestUrl = self::$_graph_url.$userId.'/photos';
-        $this->params = array(
-            'access_token' =>  $this->AccessToken->token
-        );
         return $this->sendRequest(self::REQUEST_METHOD_GET);
     }
 }
