@@ -15,8 +15,8 @@
 defined('_JEXEC') or die('Restricted access'); 
 
 class StileroFBEndpointFeed extends StileroFBEndpoint{
-    public function __construct(\StileroFBOauthAccesstoken $AccessToken, $url = "", $postVars = "", $config = "") {
-        parent::__construct($AccessToken, $url, $postVars, $config);
+    public function __construct(\StileroFBOauthAccesstoken $AccessToken) {
+        parent::__construct($AccessToken);
     }
     
     /**
@@ -28,7 +28,6 @@ class StileroFBEndpointFeed extends StileroFBEndpoint{
     public function postMessage($message, $userId = 'me'){
         $this->requestUrl = self::$_graph_url.$userId.'/feed';
         $this->params = array(
-            'access_token' =>  $this->AccessToken->token,
             'message' => $message
         );
         return $this->sendRequest();
@@ -47,7 +46,6 @@ class StileroFBEndpointFeed extends StileroFBEndpoint{
     public function postLink($link, $userId = 'me', $name='', $caption = '', $description = '', $picture=''){
        $this->requestUrl = self::$_graph_url.$userId.'/feed';
         $this->params = array(
-            'access_token' =>  $this->AccessToken->token,
             'link' => $link
         );
         if($name != ''){
@@ -72,9 +70,6 @@ class StileroFBEndpointFeed extends StileroFBEndpoint{
      */
     public function messageInfo($statusMessageId){
         $this->requestUrl = self::$_graph_url.$statusMessageId;
-        $this->params = array(
-            'access_token' =>  $this->AccessToken->token
-        );
         return $this->sendRequest(self::REQUEST_METHOD_GET);
     }
 }
