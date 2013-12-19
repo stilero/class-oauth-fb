@@ -26,8 +26,8 @@ class StileroFBEndpointFeed extends StileroFBEndpoint{
      * @return string JSON Response
      */
     public function postMessage($message, $userId = 'me'){
-        $this->_url = self::$_graph_url.$userId.'/feed';
-        $this->_postVars = array(
+        $this->requestUrl = self::$_graph_url.$userId.'/feed';
+        $this->params = array(
             'access_token' =>  $this->AccessToken->token,
             'message' => $message
         );
@@ -45,22 +45,22 @@ class StileroFBEndpointFeed extends StileroFBEndpoint{
      * @return string JSON Response
      */
     public function postLink($link, $userId = 'me', $name='', $caption = '', $description = '', $picture=''){
-       $this->_url = self::$_graph_url.$userId.'/feed';
-        $this->_postVars = array(
+       $this->requestUrl = self::$_graph_url.$userId.'/feed';
+        $this->params = array(
             'access_token' =>  $this->AccessToken->token,
             'link' => $link
         );
         if($name != ''){
-            $this->_postVars['name'] = $name;
+            $this->params['name'] = $name;
         }
         if($caption != ''){
-            $this->_postVars['caption'] = $caption;
+            $this->params['caption'] = $caption;
         }
         if($description != ''){
-            $this->_postVars['description'] = $description;
+            $this->params['description'] = $description;
         }
         if($picture != ''){
-            $this->_postVars['picture'] = $picture;
+            $this->params['picture'] = $picture;
         }
         return $this->sendRequest();
     }
@@ -71,8 +71,8 @@ class StileroFBEndpointFeed extends StileroFBEndpoint{
      * @return string JSON Response
      */
     public function messageInfo($statusMessageId){
-        $this->_url = self::$_graph_url.$statusMessageId;
-        $this->_postVars = array(
+        $this->requestUrl = self::$_graph_url.$statusMessageId;
+        $this->params = array(
             'access_token' =>  $this->AccessToken->token
         );
         return $this->sendRequest(self::REQUEST_METHOD_GET);

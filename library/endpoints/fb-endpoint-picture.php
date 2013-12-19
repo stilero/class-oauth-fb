@@ -32,21 +32,21 @@ class StileroFBEndpointPicture extends StileroFBEndpoint{
      * @return string JSON Response
      */
     public function retrieve($userId = 'me', $redirect='', $type='', $height='', $width=''){
-        $this->_url = self::$_graph_url.$userId.'/picture';
-        $this->_postVars = array(
+        $this->requestUrl = self::$_graph_url.$userId.'/picture';
+        $this->params = array(
             'access_token' =>  $this->AccessToken->token
         );
         if($redirect != ''){
-            $this->_postVars['redirect'] = $redirect;
+            $this->params['redirect'] = $redirect;
         }
         if($type != ''){
-            $this->_postVars['type'] = $type;
+            $this->params['type'] = $type;
         }
         if($height != ''){
-            $this->_postVars['height'] = $height;
+            $this->params['height'] = $height;
         }
         if($width != ''){
-            $this->_postVars['width'] = $width;
+            $this->params['width'] = $width;
         }
         return $this->sendRequest(self::REQUEST_METHOD_GET);
     }

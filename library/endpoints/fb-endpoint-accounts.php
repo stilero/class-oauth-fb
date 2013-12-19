@@ -15,8 +15,8 @@
 defined('_JEXEC') or die('Restricted access'); 
 
 class StileroFBEndpointAccounts extends StileroFBEndpoint{
-    public function __construct(\StileroFBOauthAccesstoken $AccessToken, $url = "", $postVars = "", $config = "") {
-        parent::__construct($AccessToken, $url, $postVars, $config);
+    public function __construct(\StileroFBOauthAccesstoken $AccessToken) {
+        parent::__construct($AccessToken);
     }
     
     /**
@@ -25,10 +25,7 @@ class StileroFBEndpointAccounts extends StileroFBEndpoint{
      * @return string JSON
      */
     public function info($userId = 'me'){
-        $this->_url = self::$_graph_url.$userId.'/accounts';
-        $this->_postVars = array(
-            'access_token' =>  $this->AccessToken->token
-        );
+        $this->requestUrl = self::$_graph_url.$userId.'/accounts';
         return $this->sendRequest(self::REQUEST_METHOD_GET);
     }
 }

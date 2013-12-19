@@ -31,21 +31,21 @@ class StileroFBEndpointPhotos extends StileroFBEndpoint{
      * @return string ID of the newly created photo
      */
     public function publishFromUrl($userId = 'me', $url='', $message='', $place='', $noStory=''){
-        $this->_url = self::$_graph_url.$userId.'/photos';
-        $this->_postVars = array(
+        $this->requestUrl = self::$_graph_url.$userId.'/photos';
+        $this->params = array(
             'access_token' =>  $this->AccessToken->token
         );
         if($url != ''){
-            $this->_postVars['url'] = $url;
+            $this->params['url'] = $url;
         }
         if($message != ''){
-            $this->_postVars['message'] = $message;
+            $this->params['message'] = $message;
         }
         if($place != ''){
-            $this->_postVars['place'] = $place;
+            $this->params['place'] = $place;
         }
         if($noStory != ''){
-            $this->_postVars['no_story'] = $noStory;
+            $this->params['no_story'] = $noStory;
         }
         return $this->sendRequest();
     }
@@ -56,8 +56,8 @@ class StileroFBEndpointPhotos extends StileroFBEndpoint{
      * @return string JSON Response
      */
     public function retrieve($userId = 'me'){
-        $this->_url = self::$_graph_url.$userId.'/photos';
-        $this->_postVars = array(
+        $this->requestUrl = self::$_graph_url.$userId.'/photos';
+        $this->params = array(
             'access_token' =>  $this->AccessToken->token
         );
         return $this->sendRequest(self::REQUEST_METHOD_GET);

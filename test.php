@@ -23,7 +23,7 @@ require_once FB_ENDPOINTS.'fb-endpoint-photos.php';
 $appID = '516367068420553';
 $appSecret = 'd3e4174996c353dba7ecad165ca516be';
 
-$Client = new StileroFBOauthClient($appID, $appSecret);
+$Client = new StileroOauthClient($appID, $appSecret);
 $redirectURI = 'http://localhost/classes/class-oauth-fb/test.php';
 $LoginDialog = new StileroFBLoginDialog($Client, $redirectURI);
 $loginUrl = $LoginDialog->LoginDialog();

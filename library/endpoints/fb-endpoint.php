@@ -1,6 +1,6 @@
 <?php
 /**
- * class-oauth-fb
+ * Endpoint Class
  *
  * @version  1.0
  * @package Stilero
@@ -17,8 +17,8 @@ defined('_JEXEC') or die('Restricted access');
 class StileroFBEndpoint extends StileroOauthCommunicator{
     
     protected static $_graph_url = 'https://graph.facebook.com/';
-    protected $_postVars;
-    protected $_url;
+    protected $params;
+    protected $requestUrl;
     protected $AccessToken;
 
     /**
@@ -27,23 +27,27 @@ class StileroFBEndpoint extends StileroOauthCommunicator{
      * @param type $postVars
      * @param type $config
      */
-    public function __construct(StileroFBOauthAccesstoken $AccessToken, $url = "", $postVars = "", $config = "") {
-        parent::__construct($url, $postVars, $config);
+    public function __construct(StileroFBOauthAccesstoken $AccessToken) {
+        parent::__construct();
         $this->AccessToken = $AccessToken;
     }
     
     /**
      * Publishes the request
      * @param string $requestType Use constant from Communicator class
+     * @param boolean Set to true, to send the auth token with the call
      * @return string JSON Response
      */
-    protected function sendRequest($requestType=''){
-        $requestUrl = $this->_url;
+    protected function sendRequest($requestType='', $useAuth=true){
+        $requestUrl = $this->requestUrl;
+        if($useAuth){
+            $this->params['access_token'] = $this->AccessToken->token;
+        }
         if($requestType == self::REQUEST_METHOD_GET){
-            $requestUrl = $this->_url ."?". http_build_query($this->_postVars);
+            $requestUrl = $this->requestUrl ."?". http_build_query($this->params);
             $this->setCustomRequest(self::REQUEST_METHOD_GET);
         }else{
-            $this->setPostVars($this->_postVars);
+            $this->setPostVars($this->params);
         }
         $this->setUrl($requestUrl);
         $this->query();
