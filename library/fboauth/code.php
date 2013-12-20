@@ -38,4 +38,16 @@ class StileroFBOauthCode{
             $this->code = $cleanedCode;
         }
     }
+    
+    /**
+     * Checks if a code variable is found in the received GET-request
+     * @return boolean true if found
+     */
+    public static function hasCodeInGetRequest(){
+        if(isset($_GET['code'])){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

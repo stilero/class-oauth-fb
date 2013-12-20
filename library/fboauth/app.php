@@ -26,6 +26,13 @@ class StileroFBOauthApp extends StileroOauthClient{
      */
     public function __construct($id, $secret) {
         parent::__construct($id, $secret);
+        $this->id = $id;
+    }
+    
+    public function __get($name) {
+        if($name == 'id'){
+            return $this->key;
+        }
     }
 
 }

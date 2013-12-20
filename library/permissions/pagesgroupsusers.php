@@ -24,7 +24,6 @@ class StileroFBPermisisonsPagesGroupsUsers extends StileroFBPermissions{
     const ACTIVITIES = 'user_activities'; // Provides access to the user's list of activities as the activities connection
     const CHECKINS = 'user_checkins'; //Provides read access to the authorized user's check-ins
     const EVENTS = 'user_events'; //Provides access to the list of events the user is attending 
-    const GROUPS = 'user_groups'; //Provides access to the list of groups the user is a member of as the groups connection
     const LIKES = 'user_likes'; //Provides access to the list of all of the pages the user has liked as the likes connection
     const PHOTOS = 'user_photos'; //Provides access to the photos the user has uploaded, and photos the user has been tagged in
     const STATUS = 'user_status'; //Provides access to the user's status messages and checkins. Please see the documentation for the location_post table for information on how this permission may affect retrieval of information about the locations associated with posts.
@@ -33,5 +32,8 @@ class StileroFBPermisisonsPagesGroupsUsers extends StileroFBPermissions{
     const CREATE_EVENT = 'create_event'; //nables your application to create and modify events on the user's behalf
     const PUBLISH_ACTIONS = 'publish_actions'; //Enables your app to post content, comments and likes to a user's stream and requires extra permissions from a person using your app. 
     const PUBLISH_STREAM = 'publish_stream'; //The publish_stream permission is required to post to a Facebook Page's timeline. For a Facebook User use publish_actions.
-
+    
+    public static function permissionList() {
+        parent::permissionList();
+    }
 }

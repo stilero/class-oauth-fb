@@ -20,7 +20,7 @@ abstract class StileroFBPermissions{
      * Returns a comma separated list of all defined constants
      * @return string Permissions
      */
-    public function permissionList() {
+    public static function permissionList() {
         $permissions = array_values(get_defined_constants());
         $permissionList = implode(',', $permissions);
         return $permissionList;

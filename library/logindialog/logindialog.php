@@ -16,17 +16,17 @@ defined('_JEXEC') or die('Restricted access');
 
 class StileroFBLoginDialog{
     
-    private $OauthClient;
+    private $FbApp;
     private $_redirectURL;
     private static $_url = 'https://www.facebook.com/dialog/oauth';
     
     /**
      * Class for generating Login Dialogs
-     * @param StileroOauthClient $OauthClient Also known as App-ID
+     * @param StileroFBOauthApp $FbApp FB app object with ID and secret
      * @param string $redirectURL The URI to redirect to after dialog
      */
-    public function __construct(StileroOauthClient $OauthClient, $redirectURL) {
-        $this->OauthClient = $OauthClient;
+    public function __construct(StileroFBOauthApp $FbApp, $redirectURL) {
+        $this->FbApp = $FbApp;
         $this->_redirectURL = $redirectURL;
     }
     
@@ -37,9 +37,9 @@ class StileroFBLoginDialog{
      * @param string $scope Use FB-permission class. A comma separated list of Permissions to request from the person using your app.
      * @return string URL to Login Dialog
      */
-    public function LoginDialog($state='', $responseType='', $scope=''){
+    public function url($state='', $responseType='', $scope=''){
         $url = self::$_url.
-                '?client_id='.$this->OauthClient->key.
+                '?client_id='.$this->FbApp->id.
                 '&redirect_uri='.$this->_redirectURL;
         if($state != ''){
             $url .= '&state='.$state;

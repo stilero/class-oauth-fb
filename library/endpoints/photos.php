@@ -38,8 +38,9 @@ class StileroFBEndpointPhotos extends StileroFBEndpoint{
      * that is automatically generated on a person's profile when they upload a photo using your app.
      * @return string ID of the newly created photo
      */
-    public function publishFromUrl($url='', $message='', $place='', $noStory=''){
-        $this->requestUrl = self::$_graph_url.$this->userId.'/photos';
+    public function publishFromUrl($url='', $message='', $place='', $noStory='', $userId=null){
+        $userId = isset($userId)?$userId:$this->userId;
+        $this->requestUrl = self::$_graph_url.$userId.'/photos';
         if($url != ''){
             $this->params['url'] = $url;
         }

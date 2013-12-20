@@ -90,4 +90,22 @@ class StileroFBEndpointUser extends StileroFBEndpoint{
         $this->requestUrl = self::$_graph_url.$this->userId.'/permissions';
         return $this->sendRequest(self::REQUEST_METHOD_GET);
     }
+    
+    /**
+     * Returns a token for the page requested
+     * @param string $id the page id
+     * @return string access token for the page
+     */
+    public function getTokenForPageWithId($id){
+        $accountList = $this->accounts();
+        $accounts = StileroFBResponse::handle($accountList);
+        if(isset($accounts->data)){
+            foreach ($accounts->data as $account) {
+                if($account->id == $id){
+                    return $account->access_token;
+                }
+            }
+        }
+        return null;
+    }
 }
