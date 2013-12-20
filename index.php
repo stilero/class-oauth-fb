@@ -10,7 +10,7 @@ define(FBOAUTH_LIBRARY, ROOT_DIR.'/library/fboauth/');
 define(FB_ENDPOINTS, ROOT_DIR.'/library/endpoints/');
 
 require_once 'jerror.php';
-require_once 'facebook.php';
+require_once FB_LIBRARY.'facebook.php';
 require_once FB_LIBRARY.'permissions/permissions.php';
 require_once FB_LIBRARY.'permissions/pagesgroupsusers.php';
 require_once FB_LIBRARY.'logindialog/logindialog.php';
@@ -24,7 +24,7 @@ require_once FBOAUTH_LIBRARY.'accesstoken.php';
 require_once FBOAUTH_LIBRARY.'response.php';
 require_once FB_ENDPOINTS.'endpoint.php';
 require_once FB_ENDPOINTS.'user.php';
-require_once FB_ENDPOINTS.'api.php';
+require_once FB_LIBRARY.'api.php';
 require_once FB_ENDPOINTS.'feed.php';
 require_once FB_ENDPOINTS.'photos.php';
 require_once FB_ENDPOINTS.'comments.php';
@@ -37,17 +37,13 @@ $redirectURI = 'http://localhost/classes/class-oauth-fb/index.php';
 $pageID = '223802977656746';
 $pageToken = 'CAAHVohOv2ckBAPi4KQP4GWpzhpO47BctEKzkle52110moGcvRCPrQLnvny4ZBXYDOWX4tpAdjMZBuNP2Xf8d5YJGDIWmcWR9ZAtZBkjieaHhH4GatR52AmsdA9Hu1xcikaiRG65JsUTF4q0apoUxZBK3I5zhcjkhwG9Cvo6CRHffZByUFgJult';
 
-$Facebook = new Facebook($appID, $appSecret, $redirectURI);
+$Facebook = new StileroFBFacebook($appID, $appSecret, $redirectURI);
 $Facebook->setAccessToken($accessToken);
 $Facebook->start();
 $pageToken = $Facebook->Api->User->getTokenForPageWithId($pageID);
-$response = $Facebook->Api->Feed->setToken($pageToken);
+$Facebook->Api->Feed->setToken($pageToken);
 //$response = $Facebook->Api->Feed->postLink('http://www.streetpeople.se');
-$response = $Facebook->Api->Photos->publishFromUrl('http://ilovephoto.se/images/portfolio/bestphotos/portfolio-photography-corporate-12-13120909.jpg', '', '', '', $pageID);
-
-//$response = $Facebook->getAccessToken();
-//$pageToken = $Facebook->Api->User->getTokenForPageWithId($pageID);
-//$response = $Facebook->debugToken($response);
+$response = $Facebook->Api->Photos->publishFromUrl('http://ilovephoto.se/images/portfolio/bestphotos/portfolio-photography-corporate-12-13120909.jpg', '', '', '');
 $debug = StileroFBResponse::handle($response);
 var_dump($debug);
 ?>

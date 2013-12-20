@@ -1,6 +1,6 @@
 <?php
 /**
- * class-oauth-fb
+ * API Class
  *
  * @version  1.0
  * @package Stilero
@@ -23,6 +23,13 @@ class StileroFBApi{
     public $User;
     public $AccessToken;
     
+    /**
+     * An API class to wrap up the endpoints
+     * @param StileroFBOauthAccesstoken $AccessToken AccessToken object
+     * @param string $userId a user/page/group id to use the api-calls on (123456789)
+     * @param string $postId A status post id to use api-calls (likes and comments on). 
+     * A wall post will for example result in a post id after successful posting.
+     */
     public function __construct(StileroFBOauthAccesstoken $AccessToken,$userId='me', $postId='') {
         $this->Feed = new StileroFBEndpointFeed($AccessToken, $userId);
         $this->User = new StileroFBEndpointUser($AccessToken, $userId);
