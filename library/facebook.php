@@ -152,6 +152,4 @@ class StileroFBFacebook{
     public function getToken(){
         return $this->AccessToken->token;
     }
-    
-    
 }
