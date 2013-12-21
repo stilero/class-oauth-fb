@@ -121,7 +121,7 @@ class StileroFBFacebook{
     /**
      * Checks if a token will expire and extends it if not permanent
      */
-    public function renewToken(){
+    protected function renewToken(){
         if(!$this->AccessToken->willNeverExpire($this->AccessToken->token)){
             $this->AccessToken->extend();
         }
