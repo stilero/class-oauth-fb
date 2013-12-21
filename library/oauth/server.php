@@ -44,7 +44,7 @@ class StileroOauthServer extends StileroOauthCommunicator{
      * Prepares and sets the parameters for the call
      * @param array $params An array with the params
      */
-    private function generateParams($params) {
+    private function generateParams(array $params) {
         $oauthDefaults = OauthSignature::oauthDefaults($this->OauthClient->key, $this->OauthUser->accessToken);
         $this->signingParams = array_merge($oauthDefaults, (array)$params);
         if (isset($this->signingParams['oauth_signature'])) {
@@ -88,7 +88,7 @@ class StileroOauthServer extends StileroOauthCommunicator{
      * @param array $params Params to sign
      * @param boolean $useauth Use auth or not
      */
-    private function sign($method, $url, $params, $useauth=true) {
+    private function sign($method, $url, array $params, $useauth=true) {
         $sanitizedURL = OauthHelper::sanitizeURL($url);
         $this->setURL($sanitizedURL);
         $this->generateParams($params);
@@ -110,7 +110,7 @@ class StileroOauthServer extends StileroOauthCommunicator{
      * @param array $headers array with custom headers
      * @return string The response
      */
-    public function sendRequest($url, $params=array(), $method="POST", $useauth=true, $headers=array()) {
+    public function sendRequest($url,array $params=array(), $method="POST", $useauth=true, array $headers=array()) {
         if (!empty($headers)){
             $this->headers = array_merge((array)$this->headers, (array)$headers);
         }
