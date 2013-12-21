@@ -24,7 +24,6 @@ require_once FBOAUTH_LIBRARY.'accesstoken.php';
 require_once FBOAUTH_LIBRARY.'response.php';
 require_once FB_ENDPOINTS.'endpoint.php';
 require_once FB_ENDPOINTS.'user.php';
-require_once FB_LIBRARY.'api.php';
 require_once FB_ENDPOINTS.'feed.php';
 require_once FB_ENDPOINTS.'photos.php';
 require_once FB_ENDPOINTS.'comments.php';
@@ -32,18 +31,22 @@ require_once FB_ENDPOINTS.'likes.php';
 
 $appID = '516367068420553';
 $appSecret = 'd3e4174996c353dba7ecad165ca516be';
-$accessToken = 'CAAHVohOv2ckBAPFnRfnFX9goc4sAOlVOejUAWs86XGbWBJjVIxJ9EN2w6sxgDGabD0uZB2nsGQAzeXvE2ZC4pTdwMD3wubzbfOX3yPnhM0C3AO8dGcmvMbgX4aCNKCI4ExFUSvuA4UM33zKv1n3hrFw2obtwWqzkI4YKG291uMXrcei76llZCxO0bNK3ecZD';
+$token = 'CAAHVohOv2ckBACCsR6UUM9XeOj9nwxQnPlMrz50kRdEsZC0m4B4S3gSvXHSF9zCE8A2j1aHIrthwJeT8aQsW7Jk9L3wtWVthQ5WivkwbjBQmZAEYSR80FdIo7ZCTxS6Bmnt6l4NHc6ZAxsrvRo1DOpQEYREKLC9ycTIgLSD5ZC2NghAmZAQQZAuR5uAENCZCpn4ZD';
 $redirectURI = 'http://localhost/classes/class-oauth-fb/index.php';
 $pageID = '223802977656746';
-$pageToken = 'CAAHVohOv2ckBAPi4KQP4GWpzhpO47BctEKzkle52110moGcvRCPrQLnvny4ZBXYDOWX4tpAdjMZBuNP2Xf8d5YJGDIWmcWR9ZAtZBkjieaHhH4GatR52AmsdA9Hu1xcikaiRG65JsUTF4q0apoUxZBK3I5zhcjkhwG9Cvo6CRHffZByUFgJult';
+$pageToken = 'CAAHVohOv2ckBAEPZCcuzgK9Uu6N9hpHrGNBluTCS8xyxvsvPqc14fwbJYkzNCK10ALBNFC1RmV0OtimVUOfJon7qE3KI0UxGe9ZB7weacajaeIeLHHbrZADmz6he2mWcDTr3ZCwhcLR79k4bZBj1iYHo3cGz1ZCsCJ0mhd271vXGeku94UN70s';
 
 $Facebook = new StileroFBFacebook($appID, $appSecret, $redirectURI);
-$Facebook->setAccessToken($accessToken);
-$Facebook->start();
-$pageToken = $Facebook->Api->User->getTokenForPageWithId($pageID);
-$Facebook->Api->Feed->setToken($pageToken);
+$Facebook->setAccessTokenFromToken($token);
+$Facebook->init();
+$pageToken = $Facebook->User->getTokenForPageWithId($pageID);
+$Facebook->Feed->setToken($pageToken);
+$response = $Facebook->Photos->publishFromUrl('http://ilovephoto.se/images/portfolio/bestphotos/portfolio-photography-corporate-12-13120909.jpg');
+//$response = $Facebook->getToken();
+//$pageToken = $Facebook->User->getTokenForPageWithId($pageID);
+//$Facebook->Feed->setToken($pageToken);
 //$response = $Facebook->Api->Feed->postLink('http://www.streetpeople.se');
-$response = $Facebook->Api->Photos->publishFromUrl('http://ilovephoto.se/images/portfolio/bestphotos/portfolio-photography-corporate-12-13120909.jpg', '', '', '');
+//$response = $Facebook->Photos->publishFromUrl('http://ilovephoto.se/images/portfolio/bestphotos/portfolio-photography-corporate-12-13120909.jpg', '', '', '');
 $debug = StileroFBResponse::handle($response);
 var_dump($debug);
 ?>
