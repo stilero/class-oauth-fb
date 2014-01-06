@@ -37,6 +37,7 @@ $pageID = '223802977656746';
 $pageToken = 'CAAHVohOv2ckBAEPZCcuzgK9Uu6N9hpHrGNBluTCS8xyxvsvPqc14fwbJYkzNCK10ALBNFC1RmV0OtimVUOfJon7qE3KI0UxGe9ZB7weacajaeIeLHHbrZADmz6he2mWcDTr3ZCwhcLR79k4bZBj1iYHo3cGz1ZCsCJ0mhd271vXGeku94UN70s';
 
 $Facebook = new StileroFBFacebook($appID, $appSecret, $redirectURI, $token);
+$response = $Facebook->Comments('609024129134627')->read();
 //$pageToken = $Facebook->User()->getTokenForPageWithId($pageID);
 //$Facebook->Feed()->setToken($pageToken);
 //$response = $Facebook->Photos()->publishFromUrl('http://ilovephoto.se/images/portfolio/bestphotos/portfolio-photography-corporate-12-13120909.jpg');
